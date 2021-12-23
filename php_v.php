@@ -3,14 +3,14 @@
 
 class PHPV
 {
-    public $original_version, $selected_version;
+    public $allowed_versions = ['7.4', '8.0', '8.1'];
+    public $selected_version;
 
     function __construct($argv)
     {
-        $allowed_versions = ['7.4', '8.0', '8.1'];
         $new_version = @$argv[1];
 
-        if(!in_array($new_version, $allowed_versions)) {
+        if(!in_array($new_version, $this->allowed_versions)) {
             echo "Версии php = $new_version нет в списке версий\n";
             die;
         }
@@ -20,7 +20,7 @@ class PHPV
             echo "Не выбрана версия\n";
             die;
         }
-        $this->getPhpOriginalVersion();
+
         $this->switchPhp();
     }
 
@@ -31,36 +31,16 @@ class PHPV
         die;
     }
 
-    function getPhpOriginalVersion()
-    {
-        exec('php -v', $output);
-        preg_match('/PHP (\d\.\d)\.\d/', $output[0], $matches);
-        $this->original_version = $matches[1];
-    }
-
     function switchPhp()
     {
-        $old = $this->original_version;
-        $new = $this->selected_version;
-
-        if($old === $new) {
-            echo "Данная версия уже активирована";
-            die;
+        # Disable all exist versions
+        foreach ($this->allowed_versions as $php_version) {
+            `sudo a2dismod php$php_version`;
         }
 
-        $command1 = "sudo a2dismod php$old";
-        exec($command1);
-        echo "$command1\n";
-
-        $command2 = "sudo a2enmod php$new";
-        exec($command2);
-        echo "$command2\n";
-
-        $command3 = "sudo systemctl restart apache2";
-        exec($command3);
-        echo "$command3\n";
-
-        echo "Переключение версии php $old > $new\n";
+        `sudo a2enmod php{$this->selected_version}`;
+        `sudo service apache2 restart`;
+        echo "Установлена версия php{$this->selected_version}\n";
     }
 }
 
