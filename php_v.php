@@ -42,8 +42,24 @@ class PHPV
     {
         $old = $this->original_version;
         $new = $this->selected_version;
-        $command = "sudo a2dismod php$old && sudo a2enmod php$new && sudo systemctl restart apache2";
-        exec($command);
+
+        if($old === $new) {
+            echo "Данная версия уже активирована";
+            die;
+        }
+
+        $command1 = "sudo a2dismod php$old";
+        exec($command1);
+        echo "$command1\n";
+
+        $command2 = "sudo a2enmod php$new";
+        exec($command2);
+        echo "$command2\n";
+
+        $command3 = "sudo systemctl restart apache2";
+        exec($command3);
+        echo "$command3\n";
+
         echo "Переключение версии php $old > $new\n";
     }
 }
