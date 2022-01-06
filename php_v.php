@@ -10,7 +10,12 @@ class PHPV
     {
         $new_version = @$argv[1];
 
-        if(!in_array($new_version, $this->allowed_versions)) {
+        if (!$new_version) {
+            echo "Введите номер версии, например 'phpv 8.1'\n";
+            die;
+        }
+
+        if (!in_array($new_version, $this->allowed_versions)) {
             echo "Версии php = $new_version нет в списке версий\n";
             die;
         }
