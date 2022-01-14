@@ -7,6 +7,6 @@ chmod +x phpv.php && ln -s `pwd`/phpv.php ~/bin/phpv
 ### Example:
 ```sh
 $ phpv 7.4
-или
+or
 $ phpv 8.1
 ```
