@@ -1,10 +1,10 @@
 # phpv
-Установка:
+Install:
 ```
 chmod +x phpv.php && ln -s `pwd`/phpv.php ~/bin/phpv
 ```
 
-### Переключить версию:
+### Example:
 ```sh
 $ phpv 7.4
 или
