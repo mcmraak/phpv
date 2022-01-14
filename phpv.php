@@ -32,7 +32,7 @@ class PHPV
     function help()
     {
         echo "PHP version - Программа для переключения версии php (Alex Blaze)\n";
-        echo "Пример: php_v 8.1\n";
+        echo "Пример: phpv 8.1\n";
         die;
     }
 

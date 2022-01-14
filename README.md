@@ -1,7 +1,7 @@
 # phpv
 Установка:
 ```
-chmod +x php_v.php && ln -s `pwd`/php_v.php ~/bin/phpv
+chmod +x phpv.php && ln -s `pwd`/phpv.php ~/bin/phpv
 ```
 
 ### Переключить версию:
