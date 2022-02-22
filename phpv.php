@@ -45,6 +45,10 @@ class PHPV
 
         `sudo a2enmod php{$this->selected_version}`;
         `sudo service apache2 restart`;
+
+        `sudo rm -f /etc/alternatives/php`;
+        `sudo ln -s /usr/bin/php{$this->selected_version} /etc/alternatives/php`;
+
         echo "Установлена версия php{$this->selected_version}\n";
     }
 }
